@@ -1,35 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FizzBuzz
 {
     class Program
     {
+
         static void Main(string[] args)
         {
-            for (int i = 1; i < 101; i++)
+            for (int i = 1; i < 300; i++)
             {
-                // default output msg is val of i
-                string msg = i.ToString();
+                FizzBuzzer fb = new FizzBuzzer();
 
-                // i is divisible by 3 and 5
-                if (i%15 == 0)
+                // i is divisible by 3, append
+                fb.AmendMessageList(i, 3);
+
+                // i is divisible by 5, append
+                fb.AmendMessageList(i, 5);
+
+                // multiple of 7, append
+                fb.AmendMessageList(i, 7);
+
+                // multiple of 11, overwrite
+                fb.AmendMessageList(i, 11, true);
+
+                // multiple of 13, insert before 'B' word
+                fb.InsertIntoMessageListByFirstLetter(i, 13, 'B');
+
+                // add value of i to message list, if no rule encountered thus far
+                if (fb.MessageCount == 0)
                 {
-                    msg = "FizzBang";
-                }
-                // i is divisible by 3
-                else if (i%3 == 0)
-                {
-                    msg = "Fizz";
-                }
-                // i is divisible by 5
-                else if (i%5 == 0)
-                {
-                    msg = "Bang";
+                    fb.AmendMessageList(i.ToString());
                 }
 
-                Console.WriteLine(msg);
+                // print out Fizzbuzzer message
+                Console.WriteLine((fb.IsDivisibleBy(i, 17)) ? fb.CompleteMessageInReverse : fb.CompleteMessage);
             }
-
         }
     }
 }
